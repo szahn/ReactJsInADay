@@ -1,59 +1,83 @@
 import React, {Component} from 'react';
+import ChatMessage from './ChatMessage';
 
 export default class App extends Component {
 
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
     this.state = {
-      message: 'Hello world'
+      messages : [],
+      message: 'Hello'
     };
   }
 
   componentWillMount() {
-    console.log('componentWillMount');
+
   }
 
   componentDidMount() {
-    console.log('componentDidMount');
+
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('componentWillReceiveProps', nextProps);
+
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log('shouldComponentUpdate', nextProps, nextState);
+
     return true;
   }
 
   componentWillUpdate(nextProps, nextState) {
-    console.log('componentWillUpdate', nextProps, nextState);
+
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('componentDidUpdate', prevProps, prevState);
+
   }
 
   componentWillUnmount() {
-    console.log('componentWillUnmount');
+
   }
 
   render() {
+    const sortDateDesc = (a, b) => a.created > b.created ? -1 : 1;
+    const messages = this.state.messages.sort(sortDateDesc).map((msg) => <ChatMessage key={msg.id} {...msg}/>);
     return (
-      <div id="helloWorld">
-        <input
-          id="input"
-          name="message"
-          type="text"
-          onChange={this.handleChange}
-          value={this.state.message}
-        />
-      <div id="display" style={{color: 'grey', fontSize: 35}}>{this.state.message}</div>
+      <div>
+        <div id="helloWorld">
+          <input
+            id="input"
+            name="message"
+            type="text"
+            onChange={this.handleChange}
+            onKeyPress={this.handleKeyPress}
+            value={this.state.message}
+          />
+        </div>
+        <div>
+          <ul className="chat-messages">
+            {messages}
+          </ul>
+        </div>
       </div>
     );
   }
 
+  handleKeyPress(ev){
+    if (ev.key !== "Enter") return;
+    if (this.state.message === "") return;
+    this.setState({
+      messages: this.state.messages.concat({id: this.state.messages.length, 
+        content: this.state.message, 
+        created: new Date(),
+        name: this.props.name}),
+      message: "",
+    })
+  }
+  
   handleChange(event) {
     this.setState({message: event.target.value});
   }

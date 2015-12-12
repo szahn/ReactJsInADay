@@ -3,7 +3,7 @@ body {
 }
 #helloWorld {
   width: 100vw;
-  height: 100vh;
+  height: 25vh;
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -14,4 +14,21 @@ body {
   padding: 30px;
   font-size: 30px;
   text-align: center;
+}
+
+.chat-messages{
+  margin-left: -20px;
+}
+
+.chat-messages li{
+  list-style: none;
+  
+}
+
+.chat-message{
+}
+
+.chat-message .created{
+  font-size: .9em;
+  color: #777;
 }

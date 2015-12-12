@@ -3,6 +3,4 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import '../css/style.css';
 
-ReactDOM.render((
-  <App />
-), document.getElementById('app'));
+ReactDOM.render((<App name="Stuart"/>), document.getElementById('app'));
